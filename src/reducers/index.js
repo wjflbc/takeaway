@@ -27,12 +27,31 @@ const reducer = (state = initialState, action) => {
 
         case 'ITEM_ADD':
             const id = action.payload;
+            const itemInd = state.items.findIndex(item => item.id === id);
+            if (itemInd >= 0) {
+                const itemInState = state.items.find(item => item.id === id);
+                const newItem = {
+                    ...itemInState,
+                    num: ++itemInState.num
+                }
+                return {
+                    ...state,
+                    items: [
+                        ...state.items.slice(0, itemInd),
+                        newItem,
+                        ...state.items.slice(itemInd + 1)
+                    ]
+                }
+            }
+
+
             const item = state.menu.find(item => item.id === id);
             const newItem = {
                 title: item.title,
                 price: item.price,
                 url: item.url,
-                id: item.id
+                id: item.id,
+                num: 1
 
             };
             return {
