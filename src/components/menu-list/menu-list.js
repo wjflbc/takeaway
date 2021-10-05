@@ -24,7 +24,7 @@ class MenuList extends Component {
 
     render() {
         const {menuItems, loading, error, addedToCart} = this.props;
-
+        console.log(menuItems);
 
 
         if (loading){
